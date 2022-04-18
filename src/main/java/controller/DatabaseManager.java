@@ -1,9 +1,8 @@
 package controller;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+import model.ActionArgumentEntity;
+import model.EntityFlag;
 import model.UserEntity;
 
 public class DatabaseManager {
@@ -24,11 +23,11 @@ public class DatabaseManager {
         return databaseManager;
     }
 
-    public void add(UserEntity user){
+    public void add(EntityFlag entity){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(user);
+            entityManager.persist(entity);
             transaction.commit();
         } finally {
             if (transaction.isActive()) {
