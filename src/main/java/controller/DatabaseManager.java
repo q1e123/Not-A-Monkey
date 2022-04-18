@@ -36,6 +36,20 @@ public class DatabaseManager {
             entityManager.close();
             entityManagerFactory.close();
         }
+    }
 
+    public void delete(EntityFlag entity){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.remove(entity);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
 }

@@ -11,6 +11,6 @@ public class Main {
         UserEntity user = new UserEntity();
         user.setUsername("teasd2");
         user.setPassword("testpass");
-        databaseManager.add(user);
+        databaseManager.delete(user);
     }
 }
