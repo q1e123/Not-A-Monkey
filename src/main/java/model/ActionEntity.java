@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "action", schema = "not-a-monkey", catalog = "")
-public class ActionEntity {
+public class ActionEntity implements EntityFlag{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
