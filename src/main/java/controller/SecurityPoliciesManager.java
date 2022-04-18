@@ -20,7 +20,7 @@ public class SecurityPoliciesManager {
         if (password.length() < this.minimumPasswordLength){
             throw new InsecurePasswordException("Password is too short. Minimum length: " + this.minimumPasswordLength.toString());
         }
-        if (!password.matches("    (?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])")){
+        if (!password.matches("^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{16,}$")){
             throw new InsecurePasswordException("Insecure password.");
         }
     }

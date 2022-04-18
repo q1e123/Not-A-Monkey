@@ -8,8 +8,9 @@ import model.UserEntity;
 public class Main {
     public static void main(String[] args) {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        UserEntity user = databaseManager.getUserEntity(2);
-        user.setUsername("ASDGGZ");
+        UserEntity user = new UserEntity();
+        user.setUsername("test123sec");
+        user.setPassword("AA!45aaasssssssssss");
         databaseManager.update(user);
     }
 }

@@ -1,7 +1,11 @@
 package model;
 
+import com.google.common.hash.Hashing;
+import controller.InsecurePasswordException;
+import controller.SecurityPoliciesManager;
 import jakarta.persistence.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @Entity
@@ -39,7 +43,15 @@ public class UserEntity implements EntityFlag {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        SecurityPoliciesManager securityPoliciesManager = SecurityPoliciesManager.getInstance();
+        try {
+            securityPoliciesManager.checkPassword(password);
+        } catch (InsecurePasswordException e) {
+            e.printStackTrace();
+            return;
+        }
+        String passwordHash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+        this.password = passwordHash;
     }
 
     @Override
