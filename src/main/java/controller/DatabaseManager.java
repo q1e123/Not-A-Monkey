@@ -55,20 +55,39 @@ public class DatabaseManager {
         ActionArgumentEntity entity = entityManager.find(ActionArgumentEntity.class, id);
         return entity;
     }
+
     public ActionEntity getActionEntity(Integer id){
         ActionEntity entity = entityManager.find(ActionEntity.class, id);
         return entity;
     }
+
     public BrowserEntity getBrowserEntity(Integer id){
         BrowserEntity entity = entityManager.find(BrowserEntity.class, id);
         return entity;
     }
+
     public RoutineEntity getRoutineEntity(Integer id){
         RoutineEntity entity = entityManager.find(RoutineEntity.class, id);
         return entity;
     }
+
     public UserEntity getUserEntity(Integer id){
         UserEntity entity = entityManager.find(UserEntity.class, id);
         return entity;
+    }
+
+    public void update(EntityFlag entity){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.merge(entity);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+            entityManagerFactory.close();
+        }
     }
 }

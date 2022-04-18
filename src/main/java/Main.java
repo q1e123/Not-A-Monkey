@@ -9,5 +9,7 @@ public class Main {
     public static void main(String[] args) {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         UserEntity user = databaseManager.getUserEntity(2);
+        user.setUsername("ASDGGZ");
+        databaseManager.update(user);
     }
 }
