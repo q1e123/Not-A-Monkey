@@ -1,9 +1,7 @@
 package controller;
 
 import jakarta.persistence.*;
-import model.ActionArgumentEntity;
-import model.EntityFlag;
-import model.UserEntity;
+import model.*;
 
 public class DatabaseManager {
     private static DatabaseManager databaseManager;
@@ -51,5 +49,26 @@ public class DatabaseManager {
             entityManager.close();
             entityManagerFactory.close();
         }
+    }
+
+    public ActionArgumentEntity getActionArgumentEntity(Integer id){
+        ActionArgumentEntity entity = entityManager.find(ActionArgumentEntity.class, id);
+        return entity;
+    }
+    public ActionEntity getActionEntity(Integer id){
+        ActionEntity entity = entityManager.find(ActionEntity.class, id);
+        return entity;
+    }
+    public BrowserEntity getBrowserEntity(Integer id){
+        BrowserEntity entity = entityManager.find(BrowserEntity.class, id);
+        return entity;
+    }
+    public RoutineEntity getRoutineEntity(Integer id){
+        RoutineEntity entity = entityManager.find(RoutineEntity.class, id);
+        return entity;
+    }
+    public UserEntity getUserEntity(Integer id){
+        UserEntity entity = entityManager.find(UserEntity.class, id);
+        return entity;
     }
 }
