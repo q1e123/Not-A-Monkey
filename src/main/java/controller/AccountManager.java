@@ -22,12 +22,14 @@ public class AccountManager {
         } catch (InsecurePasswordException e) {
             e.printStackTrace();
         }
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        databaseManager.add(user);
     }
 
     public UserEntity getLoggedUser(String username, String password){
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         String hashedPassword = SecurityManager.getSHA256(password);
         UserEntity user = databaseManager.getUserEntityLogin(username, hashedPassword);
-        return null;
+        return user;
     }
 }

@@ -1,3 +1,4 @@
+import controller.AccountManager;
 import controller.DatabaseManager;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -8,9 +9,8 @@ import model.UserEntity;
 public class Main {
     public static void main(String[] args) {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        UserEntity user = new UserEntity();
-        user.setUsername("test123sec");
-        user.setPassword("AA!45aaasssssssssss");
-        databaseManager.update(user);
+        AccountManager accountManager = AccountManager.getInstance();
+        //accountManager.createNewAccount("userbun", "45aaasssssssssASDs*-/s");;
+        UserEntity user = accountManager.getLoggedUser("userbun", "45aaasssssssssASDs*-/s");
     }
 }

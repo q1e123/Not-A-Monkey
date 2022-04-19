@@ -3,6 +3,8 @@ package controller;
 import jakarta.persistence.*;
 import model.*;
 
+import java.util.List;
+
 public class DatabaseManager {
     private static DatabaseManager databaseManager;
 
@@ -89,5 +91,17 @@ public class DatabaseManager {
             entityManager.close();
             entityManagerFactory.close();
         }
+    }
+
+    public UserEntity getUserEntityLogin(String username, String password){
+        String hql = "SELECT U FROM UserEntity U WHERE U.username = '%s' AND U.password = '%s'";
+        hql = String.format(hql, username, password);
+        Query query = entityManager.createQuery(hql);
+        List resultList = query.getResultList();
+        if (resultList.size() <= 0){
+            return null;
+        }
+        UserEntity user = (UserEntity) resultList.get(0);
+        return user;
     }
 }
