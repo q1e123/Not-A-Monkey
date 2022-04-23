@@ -1,7 +1,7 @@
 package model;
 
 import controller.InsecurePasswordException;
-import controller.SecurityManager;
+import controller.CryptoManager;
 import controller.SecurityPoliciesManager;
 import jakarta.persistence.*;
 
@@ -44,7 +44,7 @@ public class UserEntity {
     public void setPassword(String password) throws InsecurePasswordException {
         SecurityPoliciesManager securityPoliciesManager = SecurityPoliciesManager.getInstance();
         securityPoliciesManager.checkPassword(password);
-        String passwordHash = SecurityManager.getSHA256(password);
+        String passwordHash = CryptoManager.getSHA256(password);
         this.password = passwordHash;
     }
 
