@@ -4,7 +4,6 @@ import model.UserEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.xml.crypto.Data;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class AccountManager {
     }
 
     private Hashtable<String,String> getLoginConditionTable(String username, String password) {
-        String hashedPassword = SecurityManager.getSHA256(password);
+        String hashedPassword = CryptoManager.getSHA256(password);
         Hashtable<String,String> conditionTable = new Hashtable<>();
         conditionTable.put("username", username);
         conditionTable.put("password", hashedPassword);
