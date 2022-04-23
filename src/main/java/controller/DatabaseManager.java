@@ -1,8 +1,11 @@
 package controller;
 
+import com.google.common.reflect.TypeToken;
 import jakarta.persistence.*;
 import model.*;
 
+import java.lang.reflect.Type;
+import java.util.Hashtable;
 import java.util.List;
 
 public class DatabaseManager {
@@ -33,8 +36,6 @@ public class DatabaseManager {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            entityManager.close();
-            entityManagerFactory.close();
         }
     }
 
@@ -48,8 +49,6 @@ public class DatabaseManager {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            entityManager.close();
-            entityManagerFactory.close();
         }
     }
 
@@ -63,45 +62,18 @@ public class DatabaseManager {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            entityManager.close();
-            entityManagerFactory.close();
         }
     }
 
-    public ActionArgumentEntity getActionArgumentEntity(Integer id){
-        ActionArgumentEntity entity = entityManager.find(ActionArgumentEntity.class, id);
+    public <T> T get(Integer id, Class<T> table){
+        T entity = (T) entityManager.find(table, id);
         return entity;
     }
 
-    public ActionEntity getActionEntity(Integer id){
-        ActionEntity entity = entityManager.find(ActionEntity.class, id);
-        return entity;
-    }
-
-    public BrowserEntity getBrowserEntity(Integer id){
-        BrowserEntity entity = entityManager.find(BrowserEntity.class, id);
-        return entity;
-    }
-
-    public RoutineEntity getRoutineEntity(Integer id){
-        RoutineEntity entity = entityManager.find(RoutineEntity.class, id);
-        return entity;
-    }
-
-    public UserEntity getUserEntity(Integer id){
-        UserEntity entity = entityManager.find(UserEntity.class, id);
-        return entity;
-    }
-
-    public UserEntity getUserEntityLogin(String username, String password){
-        String hql = "SELECT U FROM UserEntity U WHERE U.username = '%s' AND U.password = '%s'";
-        hql = String.format(hql, username, password);
+    public <T> List get(Hashtable<String,String> conditionTable, Class<T> table){
+        String hql = QueryBuilder.getSelectWhereStringConditionQuery(table, conditionTable);
         Query query = entityManager.createQuery(hql);
         List resultList = query.getResultList();
-        if (resultList.size() <= 0){
-            return null;
-        }
-        UserEntity user = (UserEntity) resultList.get(0);
-        return user;
+        return resultList;
     }
 }
