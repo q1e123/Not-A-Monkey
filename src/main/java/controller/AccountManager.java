@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.xml.crypto.Data;
+import java.util.Hashtable;
+import java.util.List;
 
 public class AccountManager {
     private static AccountManager accountManager;
@@ -32,13 +34,22 @@ public class AccountManager {
 
     public UserEntity getLoggedUser(String username, String password){
         DatabaseManager databaseManager = DatabaseManager.getInstance();
-        String hashedPassword = SecurityManager.getSHA256(password);
-        UserEntity user = databaseManager.getUserEntityLogin(username, hashedPassword);
-        if (user == null){
+        Hashtable<String,String> conditionTable = getLoginConditionTable(username, password);
+        List userList = databaseManager.get(conditionTable, UserEntity.class);
+        if (userList.size() == 0) {
             logger.info("Login failed - " + username);
-        } else {
-            logger.info("Login successful - " + username);
+            return null;
         }
+        UserEntity user = (UserEntity) userList.get(0);
+        logger.info("Login successful - " + username);
         return user;
+    }
+
+    private Hashtable<String,String> getLoginConditionTable(String username, String password) {
+        String hashedPassword = SecurityManager.getSHA256(password);
+        Hashtable<String,String> conditionTable = new Hashtable<>();
+        conditionTable.put("username", username);
+        conditionTable.put("password", hashedPassword);
+        return conditionTable;
     }
 }
