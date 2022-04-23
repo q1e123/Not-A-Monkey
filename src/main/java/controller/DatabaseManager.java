@@ -23,7 +23,7 @@ public class DatabaseManager {
         return databaseManager;
     }
 
-    public void add(EntityFlag entity){
+    public void add(Object entity){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -38,11 +38,26 @@ public class DatabaseManager {
         }
     }
 
-    public void delete(EntityFlag entity){
+    public void delete(Object entity){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
             entityManager.remove(entity);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+    }
+
+    public void update(Object entity){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.merge(entity);
             transaction.commit();
         } finally {
             if (transaction.isActive()) {
@@ -76,21 +91,6 @@ public class DatabaseManager {
     public UserEntity getUserEntity(Integer id){
         UserEntity entity = entityManager.find(UserEntity.class, id);
         return entity;
-    }
-
-    public void update(EntityFlag entity){
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(entity);
-            transaction.commit();
-        } finally {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            entityManager.close();
-            entityManagerFactory.close();
-        }
     }
 
     public UserEntity getUserEntityLogin(String username, String password){

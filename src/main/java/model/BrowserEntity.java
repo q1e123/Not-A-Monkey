@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "browser", schema = "not-a-monkey", catalog = "")
-public class BrowserEntity implements EntityFlag{
+public class BrowserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")

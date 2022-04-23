@@ -1,17 +1,15 @@
 package model;
 
-import com.google.common.hash.Hashing;
 import controller.InsecurePasswordException;
 import controller.SecurityManager;
 import controller.SecurityPoliciesManager;
 import jakarta.persistence.*;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user", schema = "not-a-monkey", catalog = "")
-public class UserEntity implements EntityFlag {
+public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
