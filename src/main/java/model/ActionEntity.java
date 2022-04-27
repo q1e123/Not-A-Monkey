@@ -50,6 +50,11 @@ public class ActionEntity {
         return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(routineId, that.routineId);
     }
 
+    public ActionEntity(String name, Integer routineId) {
+        this.name = name;
+        this.routineId = routineId;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, routineId);
