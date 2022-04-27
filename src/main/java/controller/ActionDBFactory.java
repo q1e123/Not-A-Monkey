@@ -16,10 +16,17 @@ public class ActionDBFactory {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         ActionEntity actionEntity = new ActionEntity("SEND_KEYS", routineId);
         databaseManager.add(actionEntity);
-        ActionArgumentEntity actionArgumentEntityXPath = new ActionArgumentEntity("xPath", xPath, actionEntity.getId());
+        ActionArgumentEntity actionArgumentEntityXPath = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
         ActionArgumentEntity actionArgumentEntityKeys = new ActionArgumentEntity("KEYS", keys, actionEntity.getId());
         databaseManager.add(actionArgumentEntityXPath);
         databaseManager.add(actionArgumentEntityKeys);
     }
 
+    public static void addClick(Integer routineId, String xPath){
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ActionEntity actionEntity = new ActionEntity("CLICK", routineId);
+        databaseManager.add(actionEntity);
+        ActionArgumentEntity actionArgumentEntity = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
+        databaseManager.add(actionArgumentEntity);
+    }
 }
