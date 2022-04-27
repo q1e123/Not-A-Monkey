@@ -37,4 +37,15 @@ public class ActionDBFactory {
         ActionArgumentEntity actionArgumentEntity = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
         databaseManager.add(actionArgumentEntity);
     }
+
+    public static void addGetAttribute(Integer routineId, String xPath, String attribute){
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ActionEntity actionEntity = new ActionEntity("GET_ATTRIBUTE", routineId);
+        databaseManager.add(actionEntity);
+        ActionArgumentEntity actionArgumentEntityXPath = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
+        ActionArgumentEntity actionArgumentEntityAttribute = new ActionArgumentEntity("ATTRIBUTE", attribute, actionEntity.getId());
+        databaseManager.add(actionArgumentEntityXPath);
+        databaseManager.add(actionArgumentEntityAttribute);
+    }
+
 }
