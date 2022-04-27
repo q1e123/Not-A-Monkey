@@ -29,4 +29,12 @@ public class ActionDBFactory {
         ActionArgumentEntity actionArgumentEntity = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
         databaseManager.add(actionArgumentEntity);
     }
+
+    public static void addGetText(Integer routineId, String xPath){
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ActionEntity actionEntity = new ActionEntity("GET_TEXT", routineId);
+        databaseManager.add(actionEntity);
+        ActionArgumentEntity actionArgumentEntity = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
+        databaseManager.add(actionArgumentEntity);
+    }
 }
