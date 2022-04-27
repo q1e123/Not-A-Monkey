@@ -22,6 +22,10 @@ public class BrowserEntity {
         return id;
     }
 
+    @Basic
+    @Column(name = "browser_type")
+    private String browserType;
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -40,6 +44,14 @@ public class BrowserEntity {
 
     public void setDriverPath(String driverPath) {
         this.driverPath = driverPath;
+    }
+
+    public String getBrowserType() {
+        return browserType;
+    }
+
+    public void setBrowserType(String browserType) {
+        this.browserType = browserType;
     }
 
     @Override
