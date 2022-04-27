@@ -18,4 +18,10 @@ public class QueryBuilder {
         query = StringUtils.removeLastOccurence(query, " AND ");
         return query;
     }
+
+    static public <T> String getSelectByColumnQuery(String column, String value, Class<T> table){
+        String tableAsString = ClassGetter.getClassAsString(table);
+        String query = "SELECT entity FROM %s entity WHERE %s = '%s'";
+        return query;
+    }
 }
