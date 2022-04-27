@@ -48,4 +48,11 @@ public class ActionDBFactory {
         databaseManager.add(actionArgumentEntityAttribute);
     }
 
+    public static void addIsSelected(Integer routineId, String xPath) {
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ActionEntity actionEntity = new ActionEntity("IS_SELECTED", routineId);
+        databaseManager.add(actionEntity);
+        ActionArgumentEntity actionArgumentEntity = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
+        databaseManager.add(actionArgumentEntity);
+    }
 }
