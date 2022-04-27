@@ -21,6 +21,12 @@ public class ActionArgumentEntity {
     @Column(name = "action_id")
     private Integer actionId;
 
+    public ActionArgumentEntity(String type, String value, Integer actionId) {
+        this.type = type;
+        this.value = value;
+        this.actionId = actionId;
+    }
+
     public Integer getId() {
         return id;
     }
