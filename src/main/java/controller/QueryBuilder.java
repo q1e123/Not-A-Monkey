@@ -22,6 +22,14 @@ public class QueryBuilder {
     static public <T> String getSelectByColumnQuery(String column, String value, Class<T> table){
         String tableAsString = ClassGetter.getClassAsString(table);
         String query = "SELECT entity FROM %s entity WHERE %s = '%s'";
+        query = String.format(query, tableAsString, column, value);
+        return query;
+    }
+
+    static public <T> String getSelectByColumnQuery(String column, Integer value, Class<T> table){
+        String tableAsString = ClassGetter.getClassAsString(table);
+        String query = "SELECT entity FROM %s entity WHERE %s = %d";
+        query = String.format(query, tableAsString, column, value);
         return query;
     }
 }
