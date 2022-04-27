@@ -69,9 +69,14 @@ public class DatabaseManager {
         T entity = (T) entityManager.find(table, id);
         return entity;
     }
-
     public <T> List get(Hashtable<String,String> conditionTable, Class<T> table){
         String hql = QueryBuilder.getSelectWhereStringConditionQuery(conditionTable, table);
+        Query query = entityManager.createQuery(hql);
+        List resultList = query.getResultList();
+        return resultList;
+    }
+
+    public List execute(String hql){
         Query query = entityManager.createQuery(hql);
         List resultList = query.getResultList();
         return resultList;
