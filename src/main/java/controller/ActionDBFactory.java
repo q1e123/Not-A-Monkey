@@ -55,4 +55,10 @@ public class ActionDBFactory {
         ActionArgumentEntity actionArgumentEntity = new ActionArgumentEntity("XPATH", xPath, actionEntity.getId());
         databaseManager.add(actionArgumentEntity);
     }
+
+    public static void addCloseBrowser(Integer routineId) {
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        ActionEntity actionEntity = new ActionEntity("CLOSE_BROWSER", routineId);
+        databaseManager.add(actionEntity);
+    }
 }
