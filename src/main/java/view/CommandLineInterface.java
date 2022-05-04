@@ -60,7 +60,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         try {
             this.accountManager.createNewAccount(username, password);
         } catch (InsecurePasswordException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         currentUser = accountManager.getLoggedUser(username, password);
     }
