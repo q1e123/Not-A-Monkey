@@ -18,14 +18,10 @@ public class AccountManager {
         return accountManager;
     }
 
-    public void createNewAccount(String username, String password){
+    public void createNewAccount(String username, String password) throws InsecurePasswordException {
         UserEntity user = new UserEntity();
         user.setUsername(username);
-        try {
-            user.setPassword(password);
-        } catch (InsecurePasswordException e) {
-            e.printStackTrace();
-        }
+        user.setPassword(password);
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         databaseManager.add(user);
         logger.info("New account creation - " + username);
