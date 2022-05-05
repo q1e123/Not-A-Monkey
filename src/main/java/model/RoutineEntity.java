@@ -21,6 +21,16 @@ public class RoutineEntity {
     @Column(name = "user_id")
     private Integer userId;
 
+    public RoutineEntity(String name, Integer browserId, Integer userId) {
+        this.name = name;
+        this.browserId = browserId;
+        this.userId = userId;
+    }
+
+    public RoutineEntity() {
+
+    }
+
     public Integer getId() {
         return id;
     }
