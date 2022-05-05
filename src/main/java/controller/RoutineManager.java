@@ -2,13 +2,10 @@ package controller;
 
 import model.RoutineEntity;
 
-public class RoutineManager {
+public class RoutineManager extends EntityManager{
     static private RoutineManager routineManager;
-
-    private DatabaseManager databaseManager;
-
     private RoutineManager(){
-        databaseManager = DatabaseManager.getInstance();
+        super();
     }
 
     static public RoutineManager getInstance(){

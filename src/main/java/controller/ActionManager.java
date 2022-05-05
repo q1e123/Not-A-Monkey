@@ -1,11 +1,8 @@
 package controller;
 
-public class ActionManager {
+public class ActionManager extends EntityManager{
     static private ActionManager actionManager;
-
-    private DatabaseManager databaseManager;
-
     private ActionManager(){
-        databaseManager = DatabaseManager.getInstance();
+        super();
     }
 }
