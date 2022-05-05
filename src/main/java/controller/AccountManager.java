@@ -9,7 +9,6 @@ import java.util.List;
 
 public class AccountManager extends EntityManager{
     private static AccountManager accountManager;
-    private Logger logger = LogManager.getLogger(AccountManager.class);
 
     private AccountManager(){
         super();
