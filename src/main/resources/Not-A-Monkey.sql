@@ -14,7 +14,8 @@ CREATE TABLE `Routine` (
 CREATE TABLE `Browser` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(1024),
-  `driver_path` varchar(1024)
+  `driver_path` varchar(1024),
+  `browser_type` varchar(128)
 );
 
 CREATE TABLE `Action` (
