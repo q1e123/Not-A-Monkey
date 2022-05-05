@@ -72,7 +72,12 @@ public class DatabaseManager {
         List resultList = query.getResultList();
         return resultList;
     }
-
+    public <T> List get(String columnName, Integer valiue, Class<T> table){
+        String hql = QueryBuilder.getSelectByColumnQuery(columnName, valiue, table);
+        Query query = entityManager.createQuery(hql);
+        List resultList = query.getResultList();
+        return resultList;
+    }
     public List execute(String hql){
         Query query = entityManager.createQuery(hql);
         List resultList = query.getResultList();
