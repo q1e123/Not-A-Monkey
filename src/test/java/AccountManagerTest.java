@@ -1,5 +1,6 @@
 import controller.AccountManager;
 import controller.DatabaseManager;
+import controller.InsecurePasswordException;
 import model.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +30,11 @@ public class AccountManagerTest {
         AccountManager accountManager = AccountManager.getInstance();
         String user = "TEST_USER";
         String password = "45aaasssssssssASDs*-/s";
-        accountManager.createNewAccount(user, password);
+        try {
+            accountManager.createNewAccount(user, password);
+        } catch (InsecurePasswordException e) {
+            throw new RuntimeException(e);
+        }
         UserEntity userEntity = accountManager.getLoggedUser(user, password);
         Assertions.assertNotNull(userEntity);
         DatabaseManager databaseManager = DatabaseManager.getInstance();
@@ -41,7 +46,11 @@ public class AccountManagerTest {
         AccountManager accountManager = AccountManager.getInstance();
         String user = "TEST_USER--";
         String password = "45aaasssssssssASDs*-/s";
-        accountManager.createNewAccount(user, password);
+        try {
+            accountManager.createNewAccount(user, password);
+        } catch (InsecurePasswordException e) {
+            throw new RuntimeException(e);
+        }
         UserEntity userEntity = accountManager.getLoggedUser(user, password);
         Assertions.assertEquals(user, userEntity.getUsername());
         DatabaseManager databaseManager = DatabaseManager.getInstance();
@@ -53,7 +62,11 @@ public class AccountManagerTest {
         AccountManager accountManager = AccountManager.getInstance();
         String user = "TEST_USER'";
         String password = "45aaasssssssssASDs*-/s";
-        accountManager.createNewAccount(user, password);
+        try {
+            accountManager.createNewAccount(user, password);
+        } catch (InsecurePasswordException e) {
+            throw new RuntimeException(e);
+        }
         UserEntity userEntity = accountManager.getLoggedUser(user, password);
         Assertions.assertNull(userEntity);
     }
