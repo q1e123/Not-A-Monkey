@@ -5,27 +5,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class EasyDriver {
-    protected WebDriver webDriver;
+    public WebDriver webDriver;
 
     public EasyDriver(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    protected void goTo(String url){
+    public void goTo(String url){
         webDriver.get(url);
     }
 
-    protected void sendKeys(String xPath, CharSequence ... keys){
+    public void sendKeys(String xPath, CharSequence ... keys){
         WebElement webElement = find(xPath);
         webElement.sendKeys(keys);
     }
 
-    protected void click(String xPath){
+    public void click(String xPath){
         WebElement webElement = find(xPath);
         webElement.click();
     }
 
-    protected String getText(String xPath){
+    public String getText(String xPath){
         WebElement webElement = find(xPath);
         String text = webElement.getText();
         return text;
@@ -36,18 +36,18 @@ public class EasyDriver {
         return webElement;
     }
 
-    protected String getAttribute(String xPath, String attribute){
+    public String getAttribute(String xPath, String attribute){
         WebElement webElement = find(xPath);
         String attributeValue = webElement.getAttribute(attribute);
         return attributeValue;
     }
 
-    protected Boolean isSelected(String xPath){
+    public Boolean isSelected(String xPath){
         WebElement webElement = find((xPath));
         return webElement.isSelected();
     }
 
-    protected void closeBrowser(){
+    public void closeBrowser(){
         webDriver.close();
     }
 }
