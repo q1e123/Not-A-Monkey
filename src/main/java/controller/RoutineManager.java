@@ -18,5 +18,6 @@ public class RoutineManager extends EntityManager{
     public void addVRoutine(String name, Integer browserId, Integer userId){
         RoutineEntity routineEntity = new RoutineEntity(name, browserId, userId);
         databaseManager.add(routineEntity);
+        logger.info("New routine - " + name);
     }
 }
