@@ -100,14 +100,14 @@ public class CommandLineInterface extends UserInterfaceAbstract{
             String driverPath = scanner.next();
             System.out.println("Browser type: ");
             System.out.println("1. Google Chrome");
-            String browserType = gettBrowserType();
+            String browserType = getBrowserType();
             browserManager.addBrowser(name, driverPath, browserType);
         } else {
             System.out.println("You must be logged to perform this action");
         }
     }
 
-    private String gettBrowserType(){
+    private String getBrowserType(){
         ArrayList<String> supportedBrowserList = browserManager.getSupportedBrowserList();
         Integer selectedBrowser = null;
         while (selectedBrowser < 0 && selectedBrowser >= supportedBrowserList.size()){
