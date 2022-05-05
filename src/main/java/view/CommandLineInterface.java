@@ -2,9 +2,12 @@ package view;
 
 import controller.AccountManager;
 import controller.ActionDBFactory;
+import controller.BrowserManager;
 import controller.InsecurePasswordException;
+import model.BrowserEntity;
 import model.UserEntity;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Scanner;
 
@@ -15,6 +18,8 @@ public class CommandLineInterface extends UserInterfaceAbstract{
 
     public CommandLineInterface() {
         this.accountManager = AccountManager.getInstance();
+        this.browserManager = BrowserManager.getInstance();
+
         this.scanner = new Scanner(System.in);
         buildCommandsTable();
     }
@@ -53,7 +58,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     protected void createNewAccount() {
         System.out.println("*** Create new account ***");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Username: ");
+        System.out.print("Username: ");
         String username = scanner.next();
         System.out.print("Password: ");
         String password = scanner.next();
@@ -69,7 +74,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     protected void login() {
         System.out.println("*** Login ***");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Username: ");
+        System.out.print("Username: ");
         String username = scanner.next();
         System.out.print("Password: ");
         String password = scanner.next();
@@ -86,11 +91,41 @@ public class CommandLineInterface extends UserInterfaceAbstract{
 
     @Override
     protected void addBrowser() {
-
+        if (isUserLogged()) {
+            System.out.println("*** Add Browser ***");
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Name: ");
+            String name = scanner.next();
+            System.out.print("Driver path: ");
+            String driverPath = scanner.next();
+            System.out.println("Browser type: ");
+            System.out.println("1. Google Chrome");
+            String browserType = gettBrowserType();
+            browserManager.addBrowser(name, driverPath, browserType);
+        } else {
+            System.out.println("You must be logged to perform this action");
+        }
     }
 
+    private String gettBrowserType(){
+        ArrayList<String> supportedBrowserList = browserManager.getSupportedBrowserList();
+        Integer selectedBrowser = null;
+        while (selectedBrowser < 0 && selectedBrowser >= supportedBrowserList.size()){
+            System.out.println("Select a browser:");
+            for (int i = 0; i < supportedBrowserList.size(); ++i){
+                System.out.println(i + ". " + supportedBrowserList.get(i));
+            }
+            selectedBrowser = scanner.nextInt();
+        }
+        return supportedBrowserList.get(selectedBrowser);
+    }
     @Override
     protected void executeRoutine() {
 
     }
+
+    private boolean isUserLogged(){
+        return this.currentUser != null;
+    }
+
 }
