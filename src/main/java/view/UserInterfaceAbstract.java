@@ -1,12 +1,12 @@
 package view;
 
 import controller.AccountManager;
-import controller.ActionDBFactory;
+import controller.ActionManager;
 import controller.BrowserManager;
 
 public abstract class UserInterfaceAbstract {
     protected AccountManager accountManager = null;
-    protected ActionDBFactory actionDBFactory = null;
+    protected ActionManager actionManager = null;
 
     protected BrowserManager browserManager = null;
     public abstract void run();

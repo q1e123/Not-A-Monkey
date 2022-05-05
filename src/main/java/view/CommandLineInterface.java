@@ -1,6 +1,7 @@
 package view;
 
 import controller.AccountManager;
+import controller.ActionManager;
 import controller.BrowserManager;
 import controller.InsecurePasswordException;
 import model.UserEntity;
@@ -17,7 +18,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     public CommandLineInterface() {
         this.accountManager = AccountManager.getInstance();
         this.browserManager = BrowserManager.getInstance();
-
+        this.actionManager = ActionManager.getInstance();
         this.scanner = new Scanner(System.in);
         buildCommandsTable();
     }

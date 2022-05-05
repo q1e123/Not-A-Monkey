@@ -10,7 +10,7 @@ public class ActionManager extends DatabaseEntityManager {
         super();
     }
 
-    public ActionManager getInstance(){
+    static public ActionManager getInstance(){
         if (ActionManager.actionManager == null){
             actionManager = new ActionManager();
         }
