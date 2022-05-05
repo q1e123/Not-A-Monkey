@@ -26,6 +26,12 @@ public class BrowserEntity {
     @Column(name = "browser_type")
     private String browserType;
 
+    public BrowserEntity(String name, String driverPath, String browserType) {
+        this.name = name;
+        this.driverPath = driverPath;
+        this.browserType = browserType;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -66,4 +72,6 @@ public class BrowserEntity {
     public int hashCode() {
         return Objects.hash(id, name, driverPath);
     }
+
+
 }
