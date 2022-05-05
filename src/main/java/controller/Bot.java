@@ -1,0 +1,30 @@
+package controller;
+
+import org.openqa.selenium.WebDriver;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+public class Bot extends EasyDriver{
+    private Hashtable<String, Hashtable<String, String>> actionTable;
+    private ArrayList<Runnable> actionList;
+
+    public Bot(WebDriver webDriver, Hashtable<String, Hashtable<String, String>> actionTable) {
+        super(webDriver);
+        actionList = new ArrayList<>();
+        actionTable = actionTable;
+    }
+
+    public void buildActionList(){
+        for (String action : actionTable.keySet()) {
+            Hashtable<String, String> argumentTable = actionTable.get(action);
+            if (action.equals("GO_TO")){
+                String url = argumentTable.get("URL");
+                actionList.add(new Runnable() {
+                    public void run() { goTo(url); }
+                });
+            }
+        }
+    }
+}
