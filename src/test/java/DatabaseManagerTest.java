@@ -1,6 +1,5 @@
 import controller.AccountManager;
 import controller.DatabaseManager;
-import controller.InsecurePasswordException;
 import model.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

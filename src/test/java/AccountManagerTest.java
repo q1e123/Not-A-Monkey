@@ -5,7 +5,6 @@ import model.UserEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import utils.ClassGetter;
 
 public class AccountManagerTest {
     @Test

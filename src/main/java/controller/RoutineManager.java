@@ -2,7 +2,7 @@ package controller;
 
 import model.RoutineEntity;
 
-public class RoutineManager extends EntityManager{
+public class RoutineManager extends DatabaseEntityManager {
     static private RoutineManager routineManager;
     private RoutineManager(){
         super();

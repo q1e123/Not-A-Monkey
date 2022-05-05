@@ -1,10 +1,7 @@
 package controller;
 
-import com.google.common.reflect.TypeToken;
 import jakarta.persistence.*;
-import model.*;
 
-import java.lang.reflect.Type;
 import java.util.Hashtable;
 import java.util.List;
 

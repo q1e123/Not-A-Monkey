@@ -1,13 +1,11 @@
 package controller;
 
 import model.UserEntity;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Hashtable;
 import java.util.List;
 
-public class AccountManager extends EntityManager{
+public class AccountManager extends DatabaseEntityManager {
     private static AccountManager accountManager;
 
     private AccountManager(){

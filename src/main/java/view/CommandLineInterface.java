@@ -1,10 +1,8 @@
 package view;
 
 import controller.AccountManager;
-import controller.ActionDBFactory;
 import controller.BrowserManager;
 import controller.InsecurePasswordException;
-import model.BrowserEntity;
 import model.UserEntity;
 
 import java.util.ArrayList;
