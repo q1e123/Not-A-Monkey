@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Bot extends EasyDriver{
     private Hashtable<String, Hashtable<String, String>> actionTable;
@@ -25,6 +28,16 @@ public class Bot extends EasyDriver{
                     public void run() { goTo(url); }
                 });
             }
+        }
+    }
+    public void start(){
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(this::start);
+    }
+
+    private void run(){
+        for (Runnable action : actionList) {
+            action.run();
         }
     }
 }
