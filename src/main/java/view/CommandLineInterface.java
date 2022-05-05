@@ -67,7 +67,16 @@ public class CommandLineInterface extends UserInterfaceAbstract{
 
     @Override
     protected void login() {
-
+        System.out.println("*** Login ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Username: ");
+        String username = scanner.next();
+        System.out.print("Password: ");
+        String password = scanner.next();
+        currentUser = accountManager.getLoggedUser(username, password);
+        if (currentUser == null){
+            System.out.println("Try again");
+        }
     }
 
     @Override
