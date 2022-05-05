@@ -18,6 +18,9 @@ public class BrowserEntity {
     @Column(name = "driver_path")
     private String driverPath;
 
+    public BrowserEntity() {
+    }
+
     public Integer getId() {
         return id;
     }
