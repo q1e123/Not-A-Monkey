@@ -7,10 +7,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.Hashtable;
 import java.util.List;
 
-public class AccountManager {
+public class AccountManager extends EntityManager{
     private static AccountManager accountManager;
     private Logger logger = LogManager.getLogger(AccountManager.class);
 
+    private AccountManager(){
+        super();
+    }
     public static AccountManager getInstance() {
         if (AccountManager.accountManager == null){
             accountManager = new AccountManager();
@@ -22,13 +25,11 @@ public class AccountManager {
         UserEntity user = new UserEntity();
         user.setUsername(username);
         user.setPassword(password);
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
         databaseManager.add(user);
         logger.info("New account creation - " + username);
     }
 
     public UserEntity getLoggedUser(String username, String password){
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
         Hashtable<String,String> conditionTable = getLoginConditionTable(username, password);
         List userList = databaseManager.get(conditionTable, UserEntity.class);
         if (userList.size() == 0) {
