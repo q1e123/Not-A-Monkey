@@ -176,13 +176,22 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     }
 
     private void addGetAttribute(Integer routineId){
-        System.out.println("*** Add Send Keys Action ***");
+        System.out.println("*** Add Get Attribute Action ***");
         Scanner scanner = new Scanner(System.in);
         System.out.print("xPath: ");
         String xpath = scanner.next();
         System.out.print("Attribute: ");
         String attribute = scanner.next();
         actionManager.addGetAttribute(routineId, xpath, attribute);
+    }
+
+
+    private void addIsSelected(Integer routineId){
+        System.out.println("*** Add Is Selected Action ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("xPath: ");
+        String xpath = scanner.next();
+        actionManager.addIsSelected(routineId, xpath);
     }
 
 }
