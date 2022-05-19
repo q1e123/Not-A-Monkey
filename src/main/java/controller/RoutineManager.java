@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import model.ActionArgumentEntity;
 import model.ActionEntity;
+import model.BrowserEntity;
 import model.RoutineEntity;
 
 import java.util.ArrayList;
@@ -51,5 +52,23 @@ public class RoutineManager extends DatabaseEntityManager {
         return actionTable;
     }
 
-
+    public RoutineEntity getRoutine(String routineName, Integer userId){
+        EntityManager entityManager = databaseManager.getEntityManager();
+        String hql = "FROM RoutineEntity entity WHERE entity.name = :name AND entity.user_id = :user_id";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("name", routineName);
+        query.setParameter("user_id", userId);
+        ArrayList<RoutineEntity> results = (ArrayList<RoutineEntity>) query.getResultList();
+        RoutineEntity routineEntity = results.get(0);
+        return  routineEntity;
+    }
+    public BrowserEntity getBrowser(RoutineEntity routineEntity){
+        EntityManager entityManager = databaseManager.getEntityManager();
+        String hql = "FROM BrowserEntity entity WHERE entity.id = :id";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("id", routineEntity.getBrowserId());
+        ArrayList<BrowserEntity> results = (ArrayList<BrowserEntity>) query.getResultList();
+        BrowserEntity browserEntity = results.get(0);
+        return browserEntity;
+    }
 }
