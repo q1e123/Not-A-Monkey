@@ -16,10 +16,11 @@ public class Bot extends EasyDriver{
     public Bot(WebDriver webDriver, Hashtable<String, Hashtable<String, String>> actionTable) {
         super(webDriver);
         actionList = new ArrayList<>();
-        actionTable = actionTable;
+        this.actionTable = actionTable;
+        buildActionList();
     }
 
-    public void buildActionList(){
+    private void buildActionList(){
         for (String action : actionTable.keySet()) {
             Hashtable<String, String> argumentTable = actionTable.get(action);
             if (action.equals("GO_TO")){
