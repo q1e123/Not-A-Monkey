@@ -24,6 +24,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         this.routineManager = RoutineManager.getInstance();
         this.scanner = new Scanner(System.in);
         buildCommandsTable();
+        buildActionTable();
     }
 
     @Override
@@ -53,12 +54,15 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         commandsTable.put("routine", new Runnable() {
             public void run() { addRoutine(); }
         });
+        commandsTable.put("browser", new Runnable() {
+            public void run() { addBrowser(); }
+        });
     }
 
     private void buildActionTable(){
         actionTable = new Hashtable<>();
         actionTable.put("goto", new Runnable() {
-            public void run() { addGetText(routineId); }
+            public void run() { addGoTo(routineId); }
         });
         actionTable.put("send_keys", new Runnable() {
             public void run() { addSendKeys(routineId); }
@@ -78,6 +82,10 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     }
 
     private void whoami(){
+        if (currentUser == null){
+            System.out.println("You need to be logged in to do that");
+            return;
+        }
         System.out.println("You are: " + currentUser.getUsername());
     }
 
@@ -124,7 +132,11 @@ public class CommandLineInterface extends UserInterfaceAbstract{
             RoutineEntity routineEntity = routineManager.addRoutine(routineName, browserEntity.getId(), currentUser.getId());
             this.routineId = routineEntity.getId();
             String actionCommand = "";
-            while (!actionCommand.equals("end")){
+            System.out.println("Enter actions");
+            while (true){
+                if(actionCommand.equals("end")){
+                    return;
+                }
                 actionCommand = scanner.next();
                 actionTable.get(actionCommand).run();
             }
@@ -143,8 +155,6 @@ public class CommandLineInterface extends UserInterfaceAbstract{
             String name = scanner.next();
             System.out.print("Driver path: ");
             String driverPath = scanner.next();
-            System.out.println("Browser type: ");
-            System.out.println("1. Google Chrome");
             String browserType = getBrowserType();
             browserManager.addBrowser(name, driverPath, browserType);
         } else {
@@ -154,8 +164,8 @@ public class CommandLineInterface extends UserInterfaceAbstract{
 
     private String getBrowserType(){
         ArrayList<String> supportedBrowserList = browserManager.getSupportedBrowserList();
-        Integer selectedBrowser = null;
-        while (selectedBrowser < 0 && selectedBrowser >= supportedBrowserList.size()){
+        Integer selectedBrowser = -1;
+        while (selectedBrowser < 0 || selectedBrowser >= supportedBrowserList.size()){
             System.out.println("Select a browser:");
             for (int i = 0; i < supportedBrowserList.size(); ++i){
                 System.out.println(i + ". " + supportedBrowserList.get(i));
