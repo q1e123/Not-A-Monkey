@@ -58,6 +58,9 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         commandsTable.put("browser", new Runnable() {
             public void run() { addBrowser(); }
         });
+        commandsTable.put("run", new Runnable() {
+            public void run() { executeRoutine(); }
+        });
     }
 
     private void buildActionTable(){
