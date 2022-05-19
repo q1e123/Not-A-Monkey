@@ -56,6 +56,9 @@ public class ActionEntity {
         this.routineId = routineId;
     }
 
+    public ActionEntity() {
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, routineId);

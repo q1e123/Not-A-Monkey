@@ -27,6 +27,9 @@ public class ActionArgumentEntity {
         this.actionId = actionId;
     }
 
+    public ActionArgumentEntity() {
+    }
+
     public Integer getId() {
         return id;
     }
