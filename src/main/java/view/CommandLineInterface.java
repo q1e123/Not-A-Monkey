@@ -4,6 +4,7 @@ import controller.*;
 import model.BrowserEntity;
 import model.RoutineEntity;
 import model.UserEntity;
+import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -176,6 +177,16 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     }
     @Override
     protected void executeRoutine() {
+        System.out.println("*** Execute routine ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Routine: ");
+        String routineName = scanner.next();
+        RoutineEntity routineEntity = routineManager.getRoutine(routineName, currentUser.getId());
+        BrowserEntity browserEntity = routineManager.getBrowser(routineEntity);
+        WebDriver webDriver = WebDriverFactory.getDriver(browserEntity.getDriverPath(), browserEntity.getBrowserType());
+        Hashtable<String, Hashtable<String, String>> actionTable = routineManager.getActionsForRoutine(routineEntity.getId());
+        Bot bot = new Bot(webDriver, actionTable);
+        bot.start();
     }
 
     private boolean isUserLogged(){
