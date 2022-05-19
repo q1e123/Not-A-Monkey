@@ -1,5 +1,7 @@
 package controller;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import model.ActionArgumentEntity;
 import model.ActionEntity;
 import model.RoutineEntity;
@@ -28,9 +30,17 @@ public class RoutineManager extends DatabaseEntityManager {
 
     public Hashtable<String, Hashtable<String, String>> getActionsForRoutine(Integer routineId){
         Hashtable<String, Hashtable<String, String>> actionTable = new Hashtable<>();
-        ArrayList<ActionEntity> actionEntityList = (ArrayList<ActionEntity>) databaseManager.get("id", routineId, ActionEntity.class);
+        EntityManager entityManager = databaseManager.getEntityManager();
+        String hql = "FROM ActionEntity a WHERE a.id = :id";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("id", routineId);
+
+        ArrayList<ActionEntity> actionEntityList = (ArrayList<ActionEntity>) query.getResultList();
         for (ActionEntity action: actionEntityList) {
-            ArrayList<ActionArgumentEntity> argumentList =  (ArrayList<ActionArgumentEntity>) databaseManager.get("actionId", action.getId(), ActionArgumentEntity.class);
+            hql = "";
+            query = entityManager.createQuery(hql);
+            query.setParameter(":action_id", action.getId());
+            ArrayList<ActionArgumentEntity> argumentList =  (ArrayList<ActionArgumentEntity>) query.getResultList();
             Hashtable<String, String> argumentTable = new Hashtable<>();
             for (ActionArgumentEntity argumentEntity : argumentList) {
                 argumentTable.put(argumentEntity.getType(), argumentEntity.getValue());

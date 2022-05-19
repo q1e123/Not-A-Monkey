@@ -1,6 +1,8 @@
 package controller;
 
+import jakarta.persistence.EntityManager;
 import model.UserEntity;
+import org.hibernate.query.Query;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -26,7 +28,12 @@ public class AccountManager extends DatabaseEntityManager {
 
     public UserEntity getLoggedUser(String username, String password){
         Hashtable<String,String> conditionTable = getLoginConditionTable(username, password);
-        List userList = databaseManager.get(conditionTable, UserEntity.class);
+        EntityManager entityManager = databaseManager.getEntityManager();
+        String hql = "FROM UserEntity U WHERE U.username=:username AND U.password=:password";
+        Query query = (Query) entityManager.createQuery(hql);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        List userList = query.getResultList();
         if (userList.size() == 0) {
             logger.info("Login failed - " + username);
             return null;

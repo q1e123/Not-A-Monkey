@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseManager {
     private static DatabaseManager databaseManager;
@@ -66,21 +67,20 @@ public class DatabaseManager {
         T entity = (T) entityManager.find(table, id);
         return entity;
     }
-    public <T> List get(Hashtable<String,String> conditionTable, Class<T> table){
-        String hql = QueryBuilder.getSelectWhereStringConditionQuery(conditionTable, table);
-        Query query = entityManager.createQuery(hql);
+    public List execute(Query query){
         List resultList = query.getResultList();
         return resultList;
     }
-    public <T> List get(String columnName, Integer valiue, Class<T> table){
-        String hql = QueryBuilder.getSelectByColumnQuery(columnName, valiue, table);
+
+    public Query getQuery(String hql, Hashtable<String, String> parameterTable){
         Query query = entityManager.createQuery(hql);
-        List resultList = query.getResultList();
-        return resultList;
+        for (Map.Entry<String, String> entry: parameterTable.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+        return query;
     }
-    public List execute(String hql){
-        Query query = entityManager.createQuery(hql);
-        List resultList = query.getResultList();
-        return resultList;
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }
