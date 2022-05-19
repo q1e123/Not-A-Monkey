@@ -2,9 +2,7 @@ package controller;
 
 import model.ActionArgumentEntity;
 import model.ActionEntity;
-import model.BrowserEntity;
 import model.RoutineEntity;
-import org.openqa.selenium.WebDriver;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -26,13 +24,6 @@ public class RoutineManager extends DatabaseEntityManager {
         RoutineEntity routineEntity = new RoutineEntity(name, browserId, userId);
         databaseManager.add(routineEntity);
         logger.info("New routine - " + name);
-    }
-
-    public WebDriver getBrowserForRoutine(Integer routineId){
-        RoutineEntity routineEntity = databaseManager.get(routineId, RoutineEntity.class);
-        BrowserEntity browserEntity = databaseManager.get(routineEntity.getBrowserId(), BrowserEntity.class);
-        WebDriver webDriver = WebDriverFactory.getDriver(browserEntity.getDriverPath(), browserEntity.getBrowserType());
-        return  webDriver;
     }
 
     public Hashtable<String, Hashtable<String, String>> getActionsForRoutine(Integer routineId){
