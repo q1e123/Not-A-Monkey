@@ -22,10 +22,11 @@ public class RoutineManager extends DatabaseEntityManager {
         return  routineManager;
     }
 
-    public void addRoutine(String name, Integer browserId, Integer userId){
+    public RoutineEntity addRoutine(String name, Integer browserId, Integer userId){
         RoutineEntity routineEntity = new RoutineEntity(name, browserId, userId);
         databaseManager.add(routineEntity);
         logger.info("New routine - " + name);
+        return routineEntity;
     }
 
     public Hashtable<String, Hashtable<String, String>> getActionsForRoutine(Integer routineId){
