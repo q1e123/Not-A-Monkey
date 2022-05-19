@@ -1,9 +1,8 @@
 package view;
 
-import controller.AccountManager;
-import controller.ActionManager;
-import controller.BrowserManager;
-import controller.InsecurePasswordException;
+import controller.*;
+import model.BrowserEntity;
+import model.RoutineEntity;
 import model.UserEntity;
 
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ import java.util.Scanner;
 
 public class CommandLineInterface extends UserInterfaceAbstract{
     private Hashtable<String, Runnable> commandsTable;
+
+    private Hashtable<String, Runnable> actionTable;
     private Scanner scanner;
     private UserEntity currentUser;
 
@@ -19,6 +20,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         this.accountManager = AccountManager.getInstance();
         this.browserManager = BrowserManager.getInstance();
         this.actionManager = ActionManager.getInstance();
+        this.routineManager = RoutineManager.getInstance();
         this.scanner = new Scanner(System.in);
         buildCommandsTable();
     }
@@ -85,16 +87,20 @@ public class CommandLineInterface extends UserInterfaceAbstract{
 
     @Override
     protected void addRoutine() {
-        System.out.println("*** Add routine ***");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Username: ");
-        String username = scanner.next();
-        System.out.print("Password: ");
-        String password = scanner.next();
-        currentUser = accountManager.getLoggedUser(username, password);
-        if (currentUser == null){
-            System.out.println("Try again");
+        if (isUserLogged()) {
+            System.out.println("*** Add Routine ***");
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Routine: ");
+            String routineName = scanner.next();
+            System.out.print("Browser Name: ");
+            String browserName = scanner.next();
+            BrowserEntity browserEntity = browserManager.getBrowser(browserName);
+            RoutineEntity routineEntity = routineManager.addRoutine(routineName, browserEntity.getId(), currentUser.getId());
+
+        } else {
+            System.out.println("You must be logged to perform this action");
         }
+
     }
 
     @Override
@@ -129,11 +135,54 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     }
     @Override
     protected void executeRoutine() {
-
     }
 
     private boolean isUserLogged(){
         return this.currentUser != null;
+    }
+
+    private void addGoTo(Integer routineId){
+        System.out.println("*** Add Go To Action ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("URL: ");
+        String url = scanner.next();
+        actionManager.addGoTo(routineId, url);
+    }
+
+    private void addSendKeys(Integer routineId){
+        System.out.println("*** Add Send Keys Action ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("xPath: ");
+        String xpath = scanner.next();
+        System.out.print("Keys: ");
+        String keys = scanner.next();
+        actionManager.addSendKeys(routineId, xpath, keys);
+    }
+
+    private void addClick(Integer routineId){
+        System.out.println("*** Add Click Action ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("xPath: ");
+        String xpath = scanner.next();
+        actionManager.addClick(routineId, xpath);
+    }
+
+    private void addGetText(Integer routineId){
+        System.out.println("*** Add Get Text Action ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("xPath: ");
+        String xpath = scanner.next();
+        actionManager.addGetText(routineId, xpath);
+    }
+
+    private void addSendKeys(Integer routineId){
+        System.out.println("*** Add Send Keys Action ***");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("xPath: ");
+        String xpath = scanner.next();
+        System.out.print("Keys: ");
+        String keys = scanner.next();
+        actionManager.addSendKeys(routineId, xpath, keys);
     }
 
 }
