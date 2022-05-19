@@ -33,15 +33,15 @@ public class RoutineManager extends DatabaseEntityManager {
     public Hashtable<String, Hashtable<String, String>> getActionsForRoutine(Integer routineId){
         Hashtable<String, Hashtable<String, String>> actionTable = new Hashtable<>();
         EntityManager entityManager = databaseManager.getEntityManager();
-        String hql = "FROM ActionEntity a WHERE a.id = :id";
+        String hql = "FROM ActionEntity a WHERE a.routineId = :id";
         Query query = entityManager.createQuery(hql);
         query.setParameter("id", routineId);
 
         ArrayList<ActionEntity> actionEntityList = (ArrayList<ActionEntity>) query.getResultList();
         for (ActionEntity action: actionEntityList) {
-            hql = "";
+            hql = "FROM ActionArgumentEntity a WHERE a.actionId = :id";
             query = entityManager.createQuery(hql);
-            query.setParameter(":action_id", action.getId());
+            query.setParameter("id", action.getId());
             ArrayList<ActionArgumentEntity> argumentList =  (ArrayList<ActionArgumentEntity>) query.getResultList();
             Hashtable<String, String> argumentTable = new Hashtable<>();
             for (ActionArgumentEntity argumentEntity : argumentList) {
@@ -54,7 +54,7 @@ public class RoutineManager extends DatabaseEntityManager {
 
     public RoutineEntity getRoutine(String routineName, Integer userId){
         EntityManager entityManager = databaseManager.getEntityManager();
-        String hql = "FROM RoutineEntity entity WHERE entity.name = :name AND entity.user_id = :user_id";
+        String hql = "FROM RoutineEntity entity WHERE entity.name = :name AND entity.userId = :user_id";
         Query query = entityManager.createQuery(hql);
         query.setParameter("name", routineName);
         query.setParameter("user_id", userId);
