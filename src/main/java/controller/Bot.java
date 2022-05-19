@@ -1,5 +1,7 @@
 package controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.Array;
@@ -13,9 +15,12 @@ public class Bot extends EasyDriver{
     private Hashtable<String, Hashtable<String, String>> actionTable;
     private ArrayList<Runnable> actionList;
 
+    private Logger logger;
+
     public Bot(WebDriver webDriver, Hashtable<String, Hashtable<String, String>> actionTable) {
         super(webDriver);
         actionList = new ArrayList<>();
+        logger = LogManager.getLogger(Bot.class);
         this.actionTable = actionTable;
         buildActionList();
     }
@@ -33,12 +38,15 @@ public class Bot extends EasyDriver{
     }
     public void start(){
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(this::start);
+        executor.execute(this::run);
+        logger.info("A routine thread has strated");
     }
 
     private void run(){
+        logger.info("A routine has started");
         for (Runnable action : actionList) {
             action.run();
         }
+
     }
 }
