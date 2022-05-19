@@ -27,7 +27,7 @@ public class UserEntity {
         this.password = password;
     }
 
-    public UserEntity() {
+    protected UserEntity() {
     }
 
     public Integer getId() {
