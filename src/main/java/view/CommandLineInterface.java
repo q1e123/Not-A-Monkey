@@ -175,14 +175,14 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         actionManager.addGetText(routineId, xpath);
     }
 
-    private void addSendKeys(Integer routineId){
+    private void addGetAttribute(Integer routineId){
         System.out.println("*** Add Send Keys Action ***");
         Scanner scanner = new Scanner(System.in);
         System.out.print("xPath: ");
         String xpath = scanner.next();
-        System.out.print("Keys: ");
-        String keys = scanner.next();
-        actionManager.addSendKeys(routineId, xpath, keys);
+        System.out.print("Attribute: ");
+        String attribute = scanner.next();
+        actionManager.addGetAttribute(routineId, xpath, attribute);
     }
 
 }
