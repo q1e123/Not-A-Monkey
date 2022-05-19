@@ -16,6 +16,7 @@ public class CommandLineInterface extends UserInterfaceAbstract{
     private Scanner scanner;
     private UserEntity currentUser;
 
+    private Integer routineId;
     public CommandLineInterface() {
         this.accountManager = AccountManager.getInstance();
         this.browserManager = BrowserManager.getInstance();
@@ -48,6 +49,31 @@ public class CommandLineInterface extends UserInterfaceAbstract{
         });
         commandsTable.put("whoami", new Runnable() {
             public void run() { whoami(); }
+        });
+        commandsTable.put("routine", new Runnable() {
+            public void run() { addRoutine(); }
+        });
+    }
+
+    private void buildActionTable(){
+        actionTable = new Hashtable<>();
+        actionTable.put("goto", new Runnable() {
+            public void run() { addGetText(routineId); }
+        });
+        actionTable.put("send_keys", new Runnable() {
+            public void run() { addSendKeys(routineId); }
+        });
+        actionTable.put("click", new Runnable() {
+            public void run() { addClick(routineId); }
+        });
+        actionTable.put("get_text", new Runnable() {
+            public void run() { addGetText(routineId); }
+        });
+        actionTable.put("is_selected", new Runnable() {
+            public void run() { addIsSelected(routineId); }
+        });
+        actionTable.put("get_attribute", new Runnable() {
+            public void run() { addGetAttribute(routineId); }
         });
     }
 
@@ -96,7 +122,12 @@ public class CommandLineInterface extends UserInterfaceAbstract{
             String browserName = scanner.next();
             BrowserEntity browserEntity = browserManager.getBrowser(browserName);
             RoutineEntity routineEntity = routineManager.addRoutine(routineName, browserEntity.getId(), currentUser.getId());
-
+            this.routineId = routineEntity.getId();
+            String actionCommand = "";
+            while (!actionCommand.equals("end")){
+                actionCommand = scanner.next();
+                actionTable.get(actionCommand).run();
+            }
         } else {
             System.out.println("You must be logged to perform this action");
         }
