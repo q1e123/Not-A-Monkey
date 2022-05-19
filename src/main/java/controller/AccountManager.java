@@ -19,9 +19,7 @@ public class AccountManager extends DatabaseEntityManager {
     }
 
     public void createNewAccount(String username, String password) throws InsecurePasswordException {
-        UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setPassword(password);
+        UserEntity user = new UserEntity(username, password);
         databaseManager.add(user);
         logger.info("New account creation - " + username);
     }
