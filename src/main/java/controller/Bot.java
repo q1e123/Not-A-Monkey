@@ -34,6 +34,43 @@ public class Bot extends EasyDriver{
                     public void run() { goTo(url); }
                 });
             }
+            if (action.equals("SEND_KEYS")){
+                String xpath = argumentTable.get("XPATH");
+                String keys = argumentTable.get("KEYS");
+                actionList.add(new Runnable() {
+                    public void run() { sendKeys(xpath, keys); }
+                });
+            }
+            if (action.equals("CLICK")){
+                String xpath = argumentTable.get("XPATH");
+                actionList.add(new Runnable() {
+                    public void run() { click(xpath); }
+                });
+            }
+            if (action.equals("GET_TEXT")){
+                String xpath = argumentTable.get("XPATH");
+                actionList.add(new Runnable() {
+                    public void run() { getText(xpath); }
+                });
+            }
+            if (action.equals("GET_ATTRIBUTE")){
+                String xpath = argumentTable.get("XPATH");
+                String attribute = argumentTable.get("ATTRIBUTE");
+                actionList.add(new Runnable() {
+                    public void run() { getAttribute(xpath, attribute); }
+                });
+            }
+            if (action.equals("IS_SELECTED")){
+                String xpath = argumentTable.get("XPATH");
+                actionList.add(new Runnable() {
+                    public void run() { isSelected(xpath); }
+                });
+            }
+            if (action.equals("CLOSE_BROWSER")){
+                actionList.add(new Runnable() {
+                    public void run() { closeBrowser(); }
+                });
+            }
         }
     }
     public void start(){
