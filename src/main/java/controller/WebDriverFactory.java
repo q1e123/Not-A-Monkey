@@ -50,4 +50,26 @@ public class WebDriverFactory {
         WebDriver driver = new ChromeDriver(chromeOptions);
         return driver;
     }
+
+    public static WebDriver getTor(Boolean incognito, Boolean headless, String path){
+        System.setProperty("webdriver.gecko.driver", path);
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setBinary("C:\\Users\\user\\Desktop\\Tor Browser\\Browser\\firefox.exe");
+        if (incognito){
+            firefoxOptions.addArguments("--incognito");
+        }
+        if (headless){
+            firefoxOptions.addArguments("--headless");
+        }
+        FirefoxProfile profile = new FirefoxProfile();
+        profile.setPreference("network.proxy.type", 1);
+        profile.setPreference("network.proxy.socks", "127.0.0.1");
+        profile.setPreference("network.proxy.socks_port", 9150);
+        profile.setPreference("network.proxy.socks_remote_dns", "False");
+        firefoxOptions.setProfile(profile);
+
+        firefoxOptions.setProfile(profile);
+        WebDriver driver = new FirefoxDriver(firefoxOptions);
+        return driver;
+    }
 }
