@@ -3,8 +3,10 @@ package controller;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 public class WebDriverFactory {
     public static WebDriver getDriver(String path, String browserType){
@@ -21,14 +23,17 @@ public class WebDriverFactory {
     }
 
     public static WebDriver getFireFox(Boolean incognito, Boolean headless, String path){
-        System.setProperty("webdriver.firefox.driver", path);
+        System.setProperty("webdriver.gecko.driver", path);
+        FirefoxProfile profile = new FirefoxProfile();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
         if (incognito){
             firefoxOptions.addArguments("--incognito");
         }
         if (headless){
             firefoxOptions.addArguments("--headless");
         }
+        firefoxOptions.setProfile(profile);
         WebDriver driver = new FirefoxDriver(firefoxOptions);
         return driver;
     }
