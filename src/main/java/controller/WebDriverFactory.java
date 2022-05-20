@@ -6,8 +6,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class WebDriverFactory {
     public static WebDriver getDriver(String path, String browserType){
-        if (browserType == "GOOGLE_CHROME"){
+        if (browserType.equals("GOOGLE_CHROME")){
             WebDriver driver = getChrome(false, false, path);
+            return driver;
         }
         return null;
     }
